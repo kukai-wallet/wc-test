@@ -31,9 +31,14 @@ export const MODAL_OPTIONS = {
     walletImages: { "kukai": "https://wallet.kukai.app/assets/img/header-logo1.svg" },
 } as unknown as any
 
-// export const Modal = new WalletConnectModal({
-//     projectId: CLIENT_CONFIG.projectId,
-//     ...MODAL_OPTIONS,
-//     chains: ["tezos"]
-//     // chains: ["tezos:mainnet", "tezos:ghostnet"],
-// });
+export function getAddressFromSession(session: any) {
+    if (!session) {
+        return ""
+    }
+
+    const allNamespaceAccounts = Object.values(session.namespaces)
+        .map((namespace: any) => namespace.accounts)
+        .flat()
+
+    return allNamespaceAccounts[0] ? allNamespaceAccounts[0].split(':')[2] : ''
+}

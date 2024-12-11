@@ -2,19 +2,7 @@ import { useConnect, useDisconnect, useSession, WalletConnectModalSign } from '@
 import { getSdkError } from '@walletconnect/utils';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { CLIENT_CONFIG, MODAL_OPTIONS } from './utils/wallet-connect';
-
-function getAddressFromSession(session: any) {
-  if (!session) {
-    return ""
-  }
-
-  const allNamespaceAccounts = Object.values(session.namespaces)
-    .map((namespace: any) => namespace.accounts)
-    .flat()
-
-  return allNamespaceAccounts[0] ? allNamespaceAccounts[0].split(':')[2] : ''
-}
+import { CLIENT_CONFIG, getAddressFromSession, MODAL_OPTIONS } from './utils/wallet-connect';
 
 const TEZOS_NAMESPACE = {
   "tezos": {
