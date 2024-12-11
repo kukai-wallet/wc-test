@@ -1,4 +1,3 @@
-
 export const CLIENT_CONFIG = {
     projectId: '5d690cb34ae027495f2d0c728fef3ef0',
     metadata: {
@@ -16,7 +15,6 @@ export const MODAL_OPTIONS = {
         name: "Kukai",
         id: "kukai",
         links: {
-            // universal: "",
             native: "kukai://"
         }
     }],
@@ -24,7 +22,6 @@ export const MODAL_OPTIONS = {
         name: "Kukai",
         id: "kukai",
         links: {
-            // universal: "",
             native: "kukai://",
         }
     }],
@@ -41,4 +38,24 @@ export function getAddressFromSession(session: any) {
         .flat()
 
     return allNamespaceAccounts[0] ? allNamespaceAccounts[0].split(':')[2] : ''
+}
+
+export const TEZOS_NAMESPACE = {
+    "tezos": {
+        chains: [`tezos:mainnet`],
+        events: [],
+        methods: ["tezos_send", "tezos_sign"]
+    }
+}
+
+export function hasSession() {
+    return !!localStorage.getItem("wc2:hasSession")
+}
+
+export function saveSession() {
+    localStorage.setItem("wc2:hasSession", "true")
+}
+
+export function deleteSession() {
+    localStorage.removeItem("wc2:hasSession")
 }

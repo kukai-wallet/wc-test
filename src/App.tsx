@@ -2,34 +2,15 @@ import { useConnect, useDisconnect, useSession, WalletConnectModalSign } from '@
 import { getSdkError } from '@walletconnect/utils';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { CLIENT_CONFIG, getAddressFromSession, MODAL_OPTIONS } from './utils/wallet-connect';
-
-const TEZOS_NAMESPACE = {
-  "tezos": {
-    chains: [`tezos:mainnet`],
-    events: [],
-    methods: ["tezos_send", "tezos_sign"]
-  }
-}
-
-function hasSession() {
-  return !!localStorage.getItem("wc2:hasSession")
-}
-
-function saveSession() {
-  localStorage.setItem("wc2:hasSession", "true")
-}
-
-function deleteSession() {
-  localStorage.removeItem("wc2:hasSession")
-}
+import { CLIENT_CONFIG, deleteSession, getAddressFromSession, hasSession, MODAL_OPTIONS, saveSession, TEZOS_NAMESPACE } from './utils/wallet-connect';
 
 function App() {
-  const session = useSession()
   const [isReady, setReady] = useState(false)
-  const { connect } = useConnect({ requiredNamespaces: TEZOS_NAMESPACE, })
+
+  const session = useSession()
+  const { connect } = useConnect({ requiredNamespaces: TEZOS_NAMESPACE })
   const { disconnect } = useDisconnect({ topic: "", reason: getSdkError("USER_DISCONNECTED") })
-  console.log(session)
+
   const activeAddress = getAddressFromSession(session)
 
   useEffect(() => {
@@ -46,8 +27,8 @@ function App() {
   async function handleNew() {
     try {
       await connect();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 
