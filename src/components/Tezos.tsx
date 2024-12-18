@@ -23,7 +23,12 @@ export function Tezos() {
         }
     }, [session])
 
-    async function handleNew() {
+    async function handleClick() {
+        if (activeAddress) {
+            await handleDisconnect()
+            return
+        }
+
         try {
             await connect();
         } catch (error) {
@@ -37,19 +42,19 @@ export function Tezos() {
     }
 
     return (
-        <main>
-            <h1>Tezos DApp</h1>
-            {!activeAddress ? (
-                <button onClick={handleNew} disabled={!isReady || !!activeAddress}>Connect Tezos</button>
-            ) : (
+        <section>
+            <button onClick={handleClick} disabled={!isReady}>
+                {activeAddress ? "Disconnect Tezos" : "Connect Tezos"}
+            </button>
+            {activeAddress && (
                 <div>
-                    <p>Connected Address: {activeAddress}</p>
-                    <button onClick={handleDisconnect} disabled={!isReady || !activeAddress}>Disconnect Wallet</button>
+                    <br />
+                    Tezos Address: {activeAddress}
                 </div>
             )}
 
             <WalletConnectModalSign projectId={CLIENT_CONFIG.projectId} metadata={CLIENT_CONFIG.metadata} modalOptions={MODAL_OPTIONS} />
-        </main>
+        </section>
     )
 }
 

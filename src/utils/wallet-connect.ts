@@ -22,6 +22,7 @@ export const MODAL_OPTIONS = {
         name: "Kukai",
         id: "kukai",
         links: {
+            universal: "https://wallet.kukai.app",
             native: "kukai://",
         }
     }],

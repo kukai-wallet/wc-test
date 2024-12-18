@@ -1,6 +1,8 @@
 import { EthersAdapter } from '@reown/appkit-adapter-ethers'
 import { mainnet, } from '@reown/appkit/networks'
-import { createAppKit, useAppKit } from '@reown/appkit/react'
+import { createAppKit, useAppKit, useAppKitAccount } from '@reown/appkit/react'
+import { useSession } from '@walletconnect/modal-sign-react'
+import { getAddressFromSession } from '../utils/wallet-connect'
 
 const metadata = {
     name: 'My Website',
@@ -21,14 +23,31 @@ createAppKit({
 
 export function Etherlink() {
     const { open } = useAppKit()
+    const { address, isConnected } = useAppKitAccount()
+    const session = useSession()
 
-    function handleClick() {
+    function handleConnect() {
         open()
+    }
+
+    function handleAction() {
+        const tezosAddress = getAddressFromSession(session)
+        alert(`swapping between ${tezosAddress} and ${address}`)
     }
 
     return (
         <section>
-            <button onClick={handleClick}>Connect Etherlink</button>
+            <button onClick={handleConnect}>
+                {isConnected ? "Disconnect Etherlink" : "Connect Etherlink"}
+            </button>
+            {isConnected &&
+                <div>
+                    <br />
+                    <div>Etherlink Address: {address}</div>
+                    <br />
+                    <button disabled={!session} onClick={handleAction}>Swap</button>
+                </div>
+            }
         </section>
     )
 }
