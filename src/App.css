@@ -5,23 +5,11 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +27,16 @@
 
 .read-the-docs {
   color: #888;
+}
+
+textarea {
+  background: #343434;
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  height: 193px;
+  width: 100%;
+  line-height: 19px;
+  padding: 24px;
+  margin: 0 0 16px 0;
 }
